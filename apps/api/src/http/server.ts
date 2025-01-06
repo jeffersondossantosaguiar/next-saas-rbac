@@ -1,7 +1,7 @@
 import fastifyCors from '@fastify/cors';
 import fastify from 'fastify';
 import { serializerCompiler, validatorCompiler, ZodTypeProvider } from 'fastify-type-provider-zod';
-import { createAccount } from './routes/auth/create-acount';
+import { createAccount } from './routes/auth/create-account';
 
 const app = fastify().withTypeProvider<ZodTypeProvider>()
 
