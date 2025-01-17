@@ -27,10 +27,7 @@ export async function authenticateWithGithub(app: FastifyInstance) {
         'https://github.com/login/oauth/access_token'
       )
       githubOAuthURL.searchParams.set('client_id', 'Ov23li43cYYfZMeXpZd1')
-      githubOAuthURL.searchParams.set(
-        'client_secret',
-        '2ccdcc987c582bce2ceee493a9709953b4b5d4f7'
-      )
+      githubOAuthURL.searchParams.set('client_secret', 'secret')
       githubOAuthURL.searchParams.set(
         'redirect_uri',
         'http://localhost:3000/api/auth/callback'
