@@ -1,29 +1,34 @@
 import { auth } from '@/http/middlewares/auth'
-import { roleSchema } from '@saas/auth'
 import { FastifyInstance } from 'fastify'
 import { ZodTypeProvider } from 'fastify-type-provider-zod'
 import z from 'zod'
 
-export async function getMembership(app: FastifyInstance) {
+export async function getOrganization(app: FastifyInstance) {
   app
     .withTypeProvider<ZodTypeProvider>()
     .register(auth)
     .get(
-      '/organization/:slug/membership',
+      '/organizations/:slug',
       {
         schema: {
           tags: ['Organizations'],
-          summary: 'Get user membership on organization',
+          summary: 'Get details from organization',
           security: [{ bearerAuth: [] }],
           params: z.object({
             slug: z.string(),
           }),
           response: {
             200: z.object({
-              membership: z.object({
+              organization: z.object({
                 id: z.string().uuid(),
-                role: roleSchema,
-                organizationId: z.string().uuid(),
+                name: z.string(),
+                slug: z.string(),
+                domain: z.string().nullable(),
+                shouldAttachUsersByDomain: z.boolean(),
+                avatarUrl: z.string().url().nullable(),
+                createdAt: z.date(),
+                updatedAt: z.date(),
+                ownerId: z.string().uuid(),
               }),
             }),
           },
@@ -31,15 +36,9 @@ export async function getMembership(app: FastifyInstance) {
       },
       async (request) => {
         const { slug } = request.params
-        const { membership } = await request.getUserMembership(slug)
+        const { organization } = await request.getUserMembership(slug)
 
-        return {
-          membership: {
-            id: membership.id,
-            role: membership.role,
-            organizationId: membership.organizationId,
-          },
-        }
+        return { organization }
       }
     )
 }
