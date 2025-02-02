@@ -30,7 +30,7 @@ export function SignInForm() {
         <Input name='email' type='email' id='email' />
 
         {errors?.email && (
-          <p className='text-ts font-medium text-red-500 dark:text-red-400'>
+          <p className='text-xs font-medium text-red-500 dark:text-red-400'>
             {errors.email[0]}
           </p>
         )}
@@ -41,7 +41,7 @@ export function SignInForm() {
         <Input name='password' type='password' id='password' />
 
         {errors?.password && (
-          <p className='text-ts font-medium text-red-500 dark:text-red-400'>
+          <p className='text-xs font-medium text-red-500 dark:text-red-400'>
             {errors.password[0]}
           </p>
         )}
