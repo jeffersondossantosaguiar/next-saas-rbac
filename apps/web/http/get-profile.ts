@@ -1,4 +1,4 @@
-import { api } from './api-clint'
+import { api } from './api-client'
 
 interface GetProfileResponse {
   user: {
